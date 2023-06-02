@@ -1,0 +1,147 @@
+.ContentNav{
+    height: 75px;
+}
+
+.headerNav{
+    position: fixed;
+    background-color: white;
+    width: 100%;
+    height: 75px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+
+    .checkBtn{
+        display: none;
+    }
+
+    .contentLeft{
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 1em;
+        gap: 1em;
+
+        .perfilImagen{
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            border: 2px solid black;
+        }
+    }
+
+    .contentRight{
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1em;
+        margin-right: 1em;
+    }
+    .boxLink{
+        
+        .linkTxt{
+            padding: 5px;
+            text-decoration: none;
+            color: black;
+        }
+
+        .linkTxt:hover{
+            text-decoration: underline;
+            color: black;
+        }
+    } 
+}
+
+#check{
+    display: none;
+}
+
+
+
+@media (max-width: 500px)
+{
+    .ContentNav{
+        height: 60px;
+    }
+
+    .headerNav{
+        height: 60px;
+        
+        .checkBtn{
+            display: unset;
+            margin-right: 1em;
+            padding: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.2);
+            background-color: white;
+            border-radius: 5px;
+        }
+
+        .contentLeft{
+
+            .perfilImagen{
+                height: 40px;
+                width: 40px;
+                border-radius: 50%;
+                border: 2px solid black;
+            }
+            .titulo{
+                font-size: large;
+            }
+        }
+        .contentRight {
+            position: fixed;
+            display: inline-block;
+            width: 100%;
+            height: 100vh;
+            background-color: gainsboro;
+            top: 60px;
+            left: -100%;
+            text-align: center;
+            transition: all .5s;
+            z-index: 1;
+
+            .boxLink{
+                display: block;
+                line-height: 30px;
+                /* padding: 10px 0 10px 0; */
+                background-color: white;
+                /* border-bottom: 1px solid black;
+                border-top: 1px solid black; */
+                margin: 1px 0;
+
+                .linkTxt{
+                    display: flex;
+                    height: 45px;
+                    justify-content: center;
+                    align-items: center;
+                    background-color: white;
+                }
+            }
+        }
+    }
+
+    /* .headerNav .contentRight .boxLink .linkTxt:hover{
+        background-color: gray;
+        text-decoration: none;
+        transition: all .25s;
+    } */
+
+    #check:checked ~ .contentRight{
+        left: 0;
+    }
+
+    #check:checked ~ .checkBtn{
+        background-color: whitesmoke;
+        box-shadow: inset 0 0 2px 2px rgba(0, 0, 0, 0.2);
+    }
+
+
+}

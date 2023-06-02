@@ -1,0 +1,29 @@
+#canvas-container{
+    position: fixed;
+    width: 100vw;
+    height: calc(100vh - 75px);
+    background-color: rgb(243, 234, 234);
+    z-index: -1;
+}
+
+#FrontLine{
+    position: absolute;
+    width: 100%;
+    height: 200%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    .CenterOfPage{
+        width: 50%;
+        height: 100%;
+        background-color: aliceblue;
+    }
+}
+
+@media (max-width: 500px)
+{
+    #canvas-container{
+        width: 100%;
+        height: calc(100% - 60px);
+    }
+}

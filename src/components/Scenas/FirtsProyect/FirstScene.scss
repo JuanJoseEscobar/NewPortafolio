@@ -1,0 +1,14 @@
+#canvas-container1{
+    width: 100%;
+    height: calc(100% - 75px);
+    background-color: rgb(243, 234, 234);
+    z-index: 1;
+}
+
+@media (max-width: 500px)
+{
+    #canvas-container1{
+        width: 100%;
+        height: calc(100% - 60px);
+    }
+}

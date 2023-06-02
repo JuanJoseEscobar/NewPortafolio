@@ -1,0 +1,191 @@
+.contenedor {
+  height: 100%;
+  width: 100%;
+  /* display: flex;
+    flex-direction: column; */
+}
+model-viewer {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+  overflow: hidden;
+}
+#default-ar-button {
+  background-color: aqua;
+}
+.container2 {
+  position: absolute;
+  width: 90%;
+  height: 40px;
+  margin-bottom: 16px;
+  margin-left: 2%;
+  top: 16px;
+  /* bottom: 1px; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.textoBTNAR{
+  font-size: large;
+  color: #f28f1d;
+}
+
+#reproducir {
+  width: 40px;
+  height: 40px;
+  background-image: url("https://ar.maderkit.com.co/AR/Template2/pause.svg");
+  border: none;
+  background-color: transparent;
+  bottom: 16px;
+  left: 16px;
+  transform: scale(var(--ar-button-scale, 1));
+  transform-origin: bottom left;
+  box-shadow: 0px 0px 4px rgb(0 0 0 / 15%);
+  border-radius: 30px;
+  cursor: pointer;
+}
+#reproducir a {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+#reproducir a img {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.progress-bar {
+  display: block;
+  width: 33%;
+  height: 10%;
+  max-height: 2%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  border-radius: 25px;
+  box-shadow: 0px 3px 10px 3px rgba(0, 0, 0, 0.5),
+    0px 0px 5px 1px rgba(61, 54, 54, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+}
+
+.progress-bar.hide {
+  visibility: hidden;
+  transition: visibility 0.3s;
+}
+
+.update-bar {
+  background-color: rgb(242, 143, 29);
+  width: 0%;
+  height: 100%;
+  border-radius: 25px;
+  float: left;
+  transition: width 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: right;
+}
+  
+  @keyframes circle {
+    from { transform: translateX(-50%) rotate(0deg) translateX(50px) rotate(0deg); }
+    to   { transform: translateX(-50%) rotate(360deg) translateX(50px) rotate(-360deg); }
+  }
+  
+  @keyframes elongate {
+    from { transform: translateX(100px); }
+    to   { transform: translateX(-100px); }
+  }
+  
+  model-viewer > #ar-prompt {
+    position: absolute;
+    left: 50%;
+    bottom: 175px;
+    animation: elongate 2s infinite ease-in-out alternate;
+    display: none;
+  }
+  
+  model-viewer[ar-status="session-started"] > #ar-prompt {
+    display: block;
+  }
+  
+  model-viewer > #ar-prompt > img {
+    animation: circle 4s linear infinite;
+  }
+
+  .label-bar{
+    padding: 5;
+    color: white;
+    font-weight: bold;
+  }
+
+  @media (max-width: 900px) {
+    .container2 {
+      position: absolute;
+      width: 30%;
+        height: 40px;
+        margin-bottom: 16px;
+        margin-left: 16px;
+        
+        /* bottom: 1px; */
+        display: flex;
+        justify-content: flex-start;
+      }
+    }
+    @media (max-width: 787px) {
+      body {
+        margin: 0;
+        padding: 5px;
+        height: 90vh;
+        display: flex;
+      }
+      model-viewer {
+        width: 100%;
+        height: 100%;
+        justify-content: center;
+    }
+    #ar-button {
+      background-image: url(https://practimac.com/AR_VR/Template/cubo.png);
+      background-repeat: no-repeat;
+      background-size: 20px;
+      background-position: 90% 50%;
+      position: absolute;
+      left: 50%;
+      top: 91.3%;
+      background-color: #4f4f4f;
+      text-align: center;
+      color: white;
+      font-size: 8.5pt;
+      padding-left: 4%;
+      font-family: Inter, sans-serif;
+      display: flex;
+      text-align: start;
+      align-items: center;
+      height: 7%;
+      border: none;
+      cursor: pointer;
+      width: 50%;
+    }
+    .label-bar{
+      font-size: 14px;
+    }
+    
+  }
+  @media (max-width: 320px) {
+    .container2 {
+      bottom: unset;
+      top: 16px;
+      left: 5px;
+      width: 45px;
+      height: 45px;
+      margin-left: 0;
+      margin-bottom: 0;
+    }
+    
+    .textoBTNAR{
+      font-size: small;
+    }
+  }
+  
+  
