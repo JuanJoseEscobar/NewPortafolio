@@ -1,5 +1,5 @@
 
-import { extend, useFrame, useThree } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
 import { useRef } from "react";
 import * as THREE from 'three';
 

@@ -8,7 +8,8 @@ import {
     FirstScene,
     SecondScene,
     ThirdScene,
-    TransformControls,
+    TransFormControlsEscene,
+    UiDebug
 } from '../components/Scenas'
 
 
@@ -47,7 +48,12 @@ export const router = createHashRouter([
                     },
                     {
                         path: "/Proyectos/TransformControls",
-                        element:<TransformControls/>,
+                        element:<TransFormControlsEscene/>,
+        
+                    },
+                    {
+                        path: "/Proyectos/UiDebug",
+                        element:<UiDebug/>,
         
                     },
                     // Se utiliza una ruta con el id del mueble, para la obtencion de la información

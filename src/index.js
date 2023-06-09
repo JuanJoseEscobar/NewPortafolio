@@ -9,11 +9,11 @@ import {router} from "./router/index.jsx";
 
 const root = ReactDOM.createRoot(document.querySelector("#root"));
 
-window.addEventListener('resize', () => {
-  root.configure({ 
-    size: { width: window.innerWidth, height: window.innerHeight }
-  })
-})
+// window.addEventListener('resize', () => {
+//   root.configure({ 
+//     size: { width: window.innerWidth, height: window.innerHeight }
+//   })
+// })
 
 root.render(
   <>

@@ -1,3 +1,4 @@
+import { useCursor } from "@react-three/drei";
 import { useFrame  } from "@react-three/fiber";
 import { useEffect, useRef, useState } from "react";
 import * as THREE from 'three';
@@ -16,6 +17,8 @@ function ObjMesh ({
 {
   const refObj = useRef();
 
+  const [hoveredCursor, setHoveredCursor] = useState(false);
+  useCursor(hoveredCursor);
   const [hovered, setHover] = useState(false);
   const [clicked, setClick] = useState(false);
 
@@ -30,8 +33,8 @@ function ObjMesh ({
       ref={refObj}
       scale={clicked ? 1.5 : 1}
       onClick={()=>setClick(!clicked)}
-      onPointerOver={()=>setHover(true)}
-      onPointerOut={()=>setHover(false)}
+      onPointerOver={()=>{setHover(true); setHoveredCursor(true)}}
+      onPointerOut={()=>{setHover(false); setHoveredCursor(false)}}
     >
       {children}
       <meshStandardMaterial color={hovered ? secondColor  : principalColor }/>

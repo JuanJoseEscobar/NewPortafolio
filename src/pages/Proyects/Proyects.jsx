@@ -32,6 +32,13 @@ const Proyects = () => {
           Titulo = {"Controles"}
           Descripcion = {"Se genera una interacion con los controladores de transformacion de los objectos."}
         />
+
+        <Proyect
+          NavTo = {"./UiDebug"}
+          SrcImage = {"./fristProyecImage.jpg"}
+          Titulo = {"UI"}
+          Descripcion = {"se crea un UI para controlar los objectos."}
+        />
         
     </div>
   );

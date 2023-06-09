@@ -1,4 +1,4 @@
-import "./TransformControls.scss";
+import "./UiDebug.scss";
 import { Canvas } from "@react-three/fiber";
 import { Experience } from "./miniComponents/Experience";
 import * as THREE from "three";
@@ -8,7 +8,7 @@ const cameraSettings = {
   fov: 45,
   near: 0.1,
   far: 200,
-  position: [0, 5, 14],
+  position: [0, 7, 15],
 };
 
 //nueva configuracion
@@ -18,11 +18,11 @@ const glSettings = {
   outputEncoding: THREE.LinearEncoding,
 };
 
-export const TransformControls = () => {
+export const UiDebug = () => {
   return (
     <div id="canvas-container1">
       <Canvas gl={glSettings} camera={cameraSettings}>
-        <OrbitControls/>
+        <OrbitControls makeDefault/>
         <Experience />
       </Canvas>
     </div>
