@@ -1,8 +1,8 @@
 import "./UiDebug.scss";
 import { Canvas } from "@react-three/fiber";
 import { Experience } from "./miniComponents/Experience";
-import * as THREE from "three";
 import { OrbitControls } from "@react-three/drei";
+import { Leva,  } from "leva";
 
 const cameraSettings = {
   fov: 45,
@@ -14,17 +14,18 @@ const cameraSettings = {
 //nueva configuracion
 const glSettings = {
   antialias: true,
-  toneMapping: THREE.ACESFilmicToneMapping,
-  outputEncoding: THREE.LinearEncoding,
+  toneMapping: 4,
+  outputEncoding: 3000,
 };
 
 export const UiDebug = () => {
   return (
     <div id="canvas-container1">
-      <Canvas gl={glSettings} camera={cameraSettings}>
-        <OrbitControls makeDefault/>
-        <Experience />
-      </Canvas>
+      <Leva collapsed  />
+        <Canvas gl={glSettings} camera={cameraSettings}>
+          <OrbitControls makeDefault/>
+          <Experience />
+        </Canvas>
     </div>
   );
 };

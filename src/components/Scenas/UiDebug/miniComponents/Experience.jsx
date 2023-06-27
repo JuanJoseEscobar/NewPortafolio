@@ -1,6 +1,7 @@
 import { useFrame } from "@react-three/fiber";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
+import { useControls, button } from "leva";
 import {
   PivotControls,
   useCursor,
@@ -10,6 +11,7 @@ import {
 } from "@react-three/drei";
 
 
+
 function ObjMesh({
   children,
   principalColor = "#e64c4c",
@@ -17,13 +19,25 @@ function ObjMesh({
   name = "Hellow Word!",
   ...props
 }) {
+  
   const refObj = useRef();
+
+  useEffect(() => {
+    console.log(refObj)
+    refObj.current.castShadow=true;
+
+  }, [])
+  
+
+  
+  
 
   const [hovered, setHovered] = useState(false);
   useCursor(hovered);
 
   return (
     <>
+    <PivotControls anchor={[0,0,0]} depthTest={false} scale={100} fixed={true}>
       <mesh
         ref={refObj}
         onPointerOver={(e) => setHovered(true)}
@@ -44,6 +58,7 @@ function ObjMesh({
           <h1>{name}</h1>
         </Html>
       </mesh>
+    </PivotControls>
     </>
   );
 }
@@ -51,6 +66,23 @@ function ObjMesh({
 
 export const Experience = () => {
   const refPlane = useRef();
+
+  
+
+  const { position, color, visible, choice} = useControls('Elementals',{
+    position:{
+      value: { x:0, y:2, z:0},
+      step: 0.1
+    },
+    color: '#dd196eff',
+    visible: true,
+    clickMe: button(() => { window.alert('you clicked me') }),
+    choice: { options: [ 'Cubo', 'Esfera'] }
+  })
+
+  // const [{name}, set] = useControls('name',()=>({ text: 'AzTro'}))//variable tipo usestate
+  const { name } = useControls('name',{ name: 'AzTro'})
+
 
   useFrame((state, delta) => {
     //groupRef.current.rotation.y += Math.PI * 0.1 * delta;
@@ -61,17 +93,18 @@ export const Experience = () => {
       <directionalLight position={[1, 2, 3]} intensity={1.5} />
       <ambientLight intensity={0.25} />
 
-      <ObjMesh position={[-3, 2, 0]} principalColor="#4c4c4c" name="AzTro">
+      <ObjMesh 
+        position={ [ position.x, position.y, position.z] } 
+        visible={visible}
+        principalColor = {color} 
+        name={ name }>
+
+        {choice=='Cubo'? <boxGeometry args={[2, 2, 2]} /> : <sphereGeometry args={[1.5]} /> }
+      </ObjMesh>
+
+      {/* <ObjMesh position={[3, 2, 0]} principalColor="#217dbf" name="Nix">
         <sphereGeometry />
-      </ObjMesh>
-
-      <ObjMesh position={[3, 2, 0]} principalColor="#217dbf" name="Nix">
-        <boxGeometry args={[2, 2, 2]} />
-      </ObjMesh>
-
-      <ObjMesh position={[0, 2, 0]} principalColor="#d6851c" name="Snow">
-        <boxGeometry args={[1, 1, 1]} />
-      </ObjMesh>
+      </ObjMesh> */}
 
 
       {/* <PivotControls
@@ -101,7 +134,7 @@ export const Experience = () => {
           color={"#ff007b"}
           textAlign="center"
         >
-          Transform Controls
+          UI
         </Text>
       </Float>
     </>
