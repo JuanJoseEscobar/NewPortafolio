@@ -1,6 +1,7 @@
 import { useFrame, useThree } from "@react-three/fiber";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { proxy, useSnapshot } from "valtio";
+import { useControls, button } from "leva";
 import * as THREE from "three";
 import {
   TransformControls,
@@ -64,6 +65,7 @@ function ControlsPivot() {
   // Get notified on changes to state
   const snap = useSnapshot(state);
   const scene = useThree((state) => state.scene);
+
   return (
     <>
       {snap.current && (

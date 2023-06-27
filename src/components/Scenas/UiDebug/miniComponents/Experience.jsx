@@ -33,7 +33,6 @@ function ObjMesh({
         value: { x: 0, y: 2, z: 0 },
         step: 0.1,
         onChange: ({x,y,z})=>{
-          console.log('i changed')
           refObj.current.position.x = x;
           refObj.current.position.y = y;
           refObj.current.position.z = z;
@@ -137,7 +136,7 @@ export const Experience = () => {
           color={"#ff007b"}
           textAlign="center"
         >
-          UI
+          UI + Transform
         </Text>
       </Float>
     </>
