@@ -8,47 +8,61 @@ import {
   Html,
   Text,
   Float,
+  TransformControls,
 } from "@react-three/drei";
-
-
 
 function ObjMesh({
   children,
-  principalColor = "#e64c4c",
-  secondColor = "#fff",
   name = "Hellow Word!",
-  ...props
 }) {
-  
+
   const refObj = useRef();
+  const refTrans = useRef();
 
   useEffect(() => {
-    console.log(refObj)
-    refObj.current.castShadow=true;
-
-  }, [])
-  
-
-  
-  
+    //console.log(refObj)
+  }, []);
 
   const [hovered, setHovered] = useState(false);
   useCursor(hovered);
 
+  const [{ color, visible }, set] = useControls(
+    "Elementals",
+    () => ({
+      position: {
+        value: { x: 0, y: 2, z: 0 },
+        step: 0.1,
+        onChange: ({x,y,z})=>{
+          console.log('i changed')
+          refObj.current.position.x = x;
+          refObj.current.position.y = y;
+          refObj.current.position.z = z;
+        }
+      },
+      color: "#dd196eff",
+      visible: true,
+      clickMe: button(() => {
+        window.alert("you clicked me!");
+      }),
+    })
+  );
+
+  useFrame((state, delta)=>{
+    const {x,y,z} = refObj.current.position;
+    set({position:{ x:x, y:y, z:z}})
+  });
+
   return (
     <>
-    <PivotControls anchor={[0,0,0]} depthTest={false} scale={100} fixed={true}>
       <mesh
         ref={refObj}
         onPointerOver={(e) => setHovered(true)}
         onPointerOut={(e) => setHovered(false)}
         name={name}
-        {...props}
+        visible={visible}
       >
         {children}
-        <meshStandardMaterial
-          color={hovered ? secondColor : principalColor}
-        />
+        <meshStandardMaterial color={hovered ? '#fff' : color} />
         <Html
           position={[0, 1.5, 0]}
           wrapperClass="tituloObjecto"
@@ -58,34 +72,23 @@ function ObjMesh({
           <h1>{name}</h1>
         </Html>
       </mesh>
-    </PivotControls>
+      <TransformControls 
+        
+        ref={refTrans}
+        object={refObj}
+      />
     </>
   );
 }
 
-
 export const Experience = () => {
   const refPlane = useRef();
 
-  
-
-  const { position, color, visible, choice} = useControls('Elementals',{
-    position:{
-      value: { x:0, y:2, z:0},
-      step: 0.1
-    },
-    color: '#dd196eff',
-    visible: true,
-    clickMe: button(() => { window.alert('you clicked me') }),
-    choice: { options: [ 'Cubo', 'Esfera'] }
-  })
-
   // const [{name}, set] = useControls('name',()=>({ text: 'AzTro'}))//variable tipo usestate
-  const { name } = useControls('name',{ name: 'AzTro'})
-
+  const { name, choice } = useControls("name", { name: "AzTro", choice: { options: ["Cubo", "Esfera"] }, });
 
   useFrame((state, delta) => {
-    //groupRef.current.rotation.y += Math.PI * 0.1 * delta;
+    
   });
 
   return (
@@ -93,19 +96,19 @@ export const Experience = () => {
       <directionalLight position={[1, 2, 3]} intensity={1.5} />
       <ambientLight intensity={0.25} />
 
-      <ObjMesh 
-        position={ [ position.x, position.y, position.z] } 
-        visible={visible}
-        principalColor = {color} 
-        name={ name }>
-
-        {choice=='Cubo'? <boxGeometry args={[2, 2, 2]} /> : <sphereGeometry args={[1.5]} /> }
+      <ObjMesh
+        name={name}
+      >
+        {choice == "Cubo" ? (
+          <boxGeometry args={[2, 2, 2]} />
+        ) : (
+          <sphereGeometry args={[1.5]} />
+        )}
       </ObjMesh>
 
       {/* <ObjMesh position={[3, 2, 0]} principalColor="#217dbf" name="Nix">
         <sphereGeometry />
       </ObjMesh> */}
-
 
       {/* <PivotControls
         anchor={[0,0,0]}
