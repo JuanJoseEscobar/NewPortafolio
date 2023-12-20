@@ -1,4 +1,4 @@
-import "./TransFormControlsEscene.scss";
+import "../StylesScenas.scss";
 import { Canvas } from "@react-three/fiber";
 import { Experience } from "./miniComponents/Experience";
 import * as THREE from "three";

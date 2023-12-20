@@ -1,8 +1,8 @@
-import "./UiDebug.scss";
+import "../StylesScenas.scss";
 import { Canvas } from "@react-three/fiber";
 import { Experience } from "./miniComponents/Experience";
 import { OrbitControls } from "@react-three/drei";
-import { Leva,  } from "leva";
+import { Leva  } from "leva";
 
 const cameraSettings = {
   fov: 45,
@@ -17,6 +17,7 @@ const glSettings = {
   toneMapping: 4,
   outputEncoding: 3000,
 };
+
 
 export const UiDebug = () => {
   return (

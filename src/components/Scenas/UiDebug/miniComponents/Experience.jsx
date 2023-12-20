@@ -10,6 +10,8 @@ import {
   Float,
   TransformControls,
 } from "@react-three/drei";
+import { Perf } from "r3f-perf";
+import { Model } from "./Model";
 
 function ObjMesh({
   children,
@@ -84,7 +86,7 @@ export const Experience = () => {
   const refPlane = useRef();
 
   // const [{name}, set] = useControls('name',()=>({ text: 'AzTro'}))//variable tipo usestate
-  const { name, choice } = useControls("name", { name: "AzTro", choice: { options: ["Cubo", "Esfera"] }, });
+  const { name, choice, PrefVisible } = useControls("name", { name: "AzTro", choice: { options: ["Cubo", "Esfera", "Figura"] }, PrefVisible: false });
 
   useFrame((state, delta) => {
     
@@ -92,6 +94,8 @@ export const Experience = () => {
 
   return (
     <>
+      {PrefVisible && <Perf position="top-left"/>}
+
       <directionalLight position={[1, 2, 3]} intensity={1.5} />
       <ambientLight intensity={0.25} />
 
@@ -100,9 +104,11 @@ export const Experience = () => {
       >
         {choice == "Cubo" ? (
           <boxGeometry args={[2, 2, 2]} />
-        ) : (
+        ) : choice == "Esfera" ? (
           <sphereGeometry args={[1.5]} />
-        )}
+        ) :
+          <Model scale={ [ 3, 3, 3 ] }/>
+        }
       </ObjMesh>
 
       {/* <ObjMesh position={[3, 2, 0]} principalColor="#217dbf" name="Nix">
