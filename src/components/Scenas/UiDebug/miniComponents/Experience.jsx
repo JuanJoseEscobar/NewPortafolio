@@ -28,8 +28,8 @@ function ObjMesh({
   const [hovered, setHovered] = useState(false);
   useCursor(hovered);
 
-  const [{ color, visible }, set] = useControls(
-    "Elementals",
+  const [{ color, visible, rotation, grados }, set] = useControls(
+    "Figura",
     () => ({
       position: {
         value: { x: 0, y: 2, z: 0 },
@@ -40,6 +40,25 @@ function ObjMesh({
           refObj.current.position.z = z;
         }
       },
+      scale: {
+        value: { x: 1, y: 1, z: 1 },
+        step: 0.1,
+        onChange: ({x,y,z})=>{
+          refObj.current.scale.x = x;
+          refObj.current.scale.y = y;
+          refObj.current.scale.z = z;
+        }
+      },
+      rotation: {
+        value: { x: 0, y: 0, z: 0 },
+        step: .01,
+        // onChange: ({x,y,z})=>{
+        //   refObj.current.rotation.x = (Math.PI * x) / 180;
+        //   refObj.current.rotation.y = (Math.PI * y) / 180;
+        //   refObj.current.rotation.z = (Math.PI * z) / 180;
+        // }
+      },
+      grados: false,
       color: "#dd196eff",
       visible: true,
       clickMe: button(() => {
@@ -50,6 +69,9 @@ function ObjMesh({
 
   useFrame((state, delta)=>{
     const {x,y,z} = refObj.current.position;
+    refObj.current.rotation.x = grados ? (Math.PI * rotation.x) / 180 : Math.PI * rotation.x;
+    refObj.current.rotation.y = grados ? (Math.PI * rotation.y) / 180 : Math.PI * rotation.y;
+    refObj.current.rotation.z = grados ? (Math.PI * rotation.z) / 180 : Math.PI * rotation.z;
     set({position:{ x:x, y:y, z:z}})
   });
 
@@ -60,6 +82,7 @@ function ObjMesh({
         onPointerOver={(e) => setHovered(true)}
         onPointerOut={(e) => setHovered(false)}
         name={name}
+        castShadow
         visible={visible}
       >
         {children}
@@ -86,7 +109,12 @@ export const Experience = () => {
   const refPlane = useRef();
 
   // const [{name}, set] = useControls('name',()=>({ text: 'AzTro'}))//variable tipo usestate
-  const { name, choice, PrefVisible } = useControls("name", { name: "AzTro", choice: { options: ["Cubo", "Esfera", "Figura"] }, PrefVisible: false });
+  const [{ name, Figura, PrefVisible, background}, set] = useControls("Esena", () => ({ name: "AzTro", Figura: { options: ["Cubo", "Esfera", "Figura"] }, PrefVisible: false, background: "#f8ffde" }));
+  
+  useEffect(() => {
+    set({background:"ivory"})
+  }, [])
+  
 
   useFrame((state, delta) => {
     
@@ -95,37 +123,27 @@ export const Experience = () => {
   return (
     <>
       {PrefVisible && <Perf position="top-left"/>}
+      <color args={[background]} attach="background"/>
 
-      <directionalLight position={[1, 2, 3]} intensity={1.5} />
-      <ambientLight intensity={0.25} />
+      <directionalLight castShadow position={[10, 20, 30]} intensity={1.5} />
+      <ambientLight castShadow intensity={0.25} />
 
       <ObjMesh
         name={name}
+        
       >
-        {choice == "Cubo" ? (
+        {Figura == "Cubo" ? (
           <boxGeometry args={[2, 2, 2]} />
-        ) : choice == "Esfera" ? (
+        ) : Figura == "Esfera" ? (
           <sphereGeometry args={[1.5]} />
         ) :
-          <Model scale={ [ 3, 3, 3 ] }/>
+          <Model scale={ [ 2, 2, 2 ] }/>
         }
       </ObjMesh>
 
-      {/* <ObjMesh position={[3, 2, 0]} principalColor="#217dbf" name="Nix">
-        <sphereGeometry />
-      </ObjMesh> */}
-
-      {/* <PivotControls
-        anchor={[0,0,0]}
-        depthTest={false}
-        lineWidth={2}
-        axisColors={["#ee6a6a","#6ff36f","#6fc9f3"]}
-        scale={100}
-        fixed={true}
-      /> */}
-
       <mesh
-        ref={refPlane}
+        //ref={refPlane}
+        receiveShadow={true}
         position={[0, 0, -1]}
         rotation-x={-(Math.PI * 0.5)}
         scale={[15, 15, 1]}

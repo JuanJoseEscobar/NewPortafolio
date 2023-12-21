@@ -23,7 +23,7 @@ export const UiDebug = () => {
   return (
     <div id="canvas-container1">
       <Leva collapsed  />
-        <Canvas gl={glSettings} camera={cameraSettings}>
+        <Canvas gl={glSettings} camera={cameraSettings} shadows>
           <OrbitControls makeDefault/>
           <Experience />
         </Canvas>
